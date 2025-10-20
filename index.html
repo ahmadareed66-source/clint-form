@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>📋 استبيان العميل</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#121212;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto}
+    .container{max-width:900px;margin:auto;padding:20px}
+    .card{background:#1e1e1e;border:1px solid #2a2a2a;border-radius:16px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    h1{margin:0 0 18px;text-align:center;font-size:1.7rem}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    label.title{display:block;margin:14px 0 6px;color:#e5e5e5;font-weight:600}
+    input[type="text"],input[type="number"],select,textarea{
+      width:100%;background:#2b2b2b;color:#fff;border:1px solid #444;border-radius:10px;padding:12px;font-size:1rem
+    }
+    textarea{min-height:90px;resize:vertical}
+    .question{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:14px;padding:14px;margin:16px 0}
+    .question h3{margin:0 0 12px;font-size:1.05rem}
+    .options-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+    .toggle-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#2b2b2b;border:1px solid #424242;border-radius:10px;padding:10px;cursor:pointer;transition:.2s;user-select:none}
+    .toggle-btn:hover{transform:translateY(-1px)}
+    .toggle-btn input{display:none}
+    .toggle-btn span{display:inline-flex;align-items:center;gap:6px;color:#ddd;font-size:.96rem}
+    .toggle-btn input:checked + span{background:#4caf50;color:#fff;border-radius:8px;padding:6px 10px}
+    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+    .btn{flex:1 1 200px;background:#4caf50;color:#fff;border:none;border-radius:12px;padding:14px 16px;font-size:1.05rem;cursor:pointer;transition:.2s}
+    .btn:hover{background:#3f9a45}
+    .btn.sec{background:#2196f3}.btn.sec:hover{background:#1c7ed1}
+    hr.sep{border:none;height:1px;background:#2a2a2a;margin:22px 0}
+    #preview{display:none;background:#171717;border:1px solid #2a2a2a;border-radius:14px;padding:16px;white-space:pre-wrap;line-height:1.7}
+    .note{margin-top:10px;color:#bdbdbd;font-size:.95rem}
+    .toast{position:fixed;inset:auto 16px 18px auto;background:#4caf50;color:#fff;padding:12px 16px;border-radius:10px;opacity:0;transform:translateY(12px);transition:.35s}
+    .toast.show{opacity:1;transform:translateY(0)}
+    @media (max-width:720px){
+      .grid-2{grid-template-columns:1fr}
+      input,select,textarea{font-size:1.05rem}
+      .btn{font-size:1.05rem;padding:16px}
+    }
+    .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>📋 استبيان التغذية</h1>
+
+      <!-- معلومات العميل -->
+      <label class="title" for="name">📌 اسم العميل</label>
+      <input id="name" type="text" placeholder="أدخل اسمك الكامل">
+
+      <div class="grid-2">
+        <div>
+          <label class="title" for="height">🎛 الطول (سم)</label>
+          <input id="height" type="number" inputmode="numeric" placeholder="مثال: 175">
+        </div>
+        <div>
+          <label class="title" for="weight">⚖️ الوزن (كغ)</label>
+          <input id="weight" type="number" inputmode="numeric" placeholder="مثال: 72">
+        </div>
+        <div>
+          <label class="title" for="age">🎂 العمر</label>
+          <input id="age" type="number" inputmode="numeric" placeholder="مثال: 25">
+        </div>
+        <div>
+          <label class="title" for="days">📅 عدد أيام التمرين</label>
+          <select id="days">
+            <option value="">اختر...</option>
+            <option>يومين</option><option>3 أيام</option><option>4 أيام</option>
+            <option>5 أيام</option><option>6 أيام</option><option>7 أيام</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="title" for="goal">🎯 الهدف من البرنامج</label>
+      <textarea id="goal" placeholder="مثال: نزول وزن / زيادة كتلة / تثبيت..."></textarea>
+
+      <label class="title" for="history">🏋️‍♀️ التاريخ التدريبي</label>
+      <textarea id="history" placeholder="مثال: تمرنت سنة / جديد على التمرين..."></textarea>
+
+      <label class="title" for="injuries">🤕 إصابات أو أمراض</label>
+      <textarea id="injuries" placeholder="مثال: آلام ركبة / لا يوجد..."></textarea>
+
+      <label class="title" for="job">🧑‍💻 طبيعة العمل</label>
+      <textarea id="job" placeholder="مثال: مكتبي / ميداني / ورديات..."></textarea>
+
+      <label class="title" for="time">🕒 الوقت المفضل للتمرين</label>
+      <select id="time">
+        <option>بعد الاستيقاظ مباشرة</option>
+        <option>منتصف اليوم</option>
+        <option>وقت متأخر من اليوم</option>
+      </select>
+
+      <!-- الأقسام الغذائية الموسعة بالإيموجي -->
+      <div class="question">
+        <h3>🍗 البروتينات المفضلة</h3>
+        <div class="options-grid" id="proteins">
+          <!-- بروتين -->
+          <label class="toggle-btn"><input type="checkbox" value="دجاج 🍗"><span>🍗 دجاج</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="تونة 🐟"><span>🐟 تونة</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="لحم 🥩"><span>🥩 لحم</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="بيض 🥚"><span>🥚 بيض</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="بياض بيض 🥚"><span>🥚 بياض بيض</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="كبدة دجاج 🍗"><span>🍗 كبدة دجاج</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="كبدة بقر 🐄"><span>🐄 كبدة بقر</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="واي بروتين 🥤"><span>🥤 واي بروتين</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="سمك 🐟"><span>🐟 سمك</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="سالمون 🐟"><span>🐟 سالمون</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="حبش مدخن 🍖"><span>🍖 حبش مدخن</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="جمبري 🍤"><span>🍤 جمبري</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>🥔 الكربوهيدرات المفضلة</h3>
+        <div class="options-grid" id="carbs">
+          <!-- قديمة -->
+          <label class="toggle-btn"><input type="checkbox" value="أرز 🍚"><span>🍚 أرز</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="بطاطا 🥔"><span>🥔 بطاطا</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="مكرونة بنية 🍝"><span>🍝 مكرونة بنية</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="شوفان 🥣"><span>🥣 شوفان</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="توست بني 🍞"><span>🍞 توست بني</span></label>
+          <!-- جديدة -->
+          <label class="toggle-btn"><input type="checkbox" value="بطاطا حلوة 🍠"><span>🍠 بطاطا حلوة</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="خبز تورتيلا أسمر 🌯"><span>🌯 خبز تورتيلا أسمر</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="خبز تورتيلا أبيض 🌯"><span>🌯 خبز تورتيلا أبيض</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="خبز عربي 🍞"><span>🍞 خبز عربي</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="خبز برغر أسمر 🍔"><span>🍔 خبز برغر أسمر</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="خبز برغر أبيض 🍔"><span>🍔 خبز برغر أبيض</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="برغل 🍲"><span>🍲 برغل</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="كينوا 🍚"><span>🍚 كينوا</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="معروكة 🥯"><span>🥯 معروكة</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="كورن فليكس 🥣"><span>🥣 كورن فليكس</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="تمر 🌴"><span>🌴 تمر</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="عسل 🍯"><span>🍯 عسل</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>🧈 الدهون المفضلة</h3>
+        <div class="options-grid" id="fats">
+          <label class="toggle-btn"><input type="checkbox" value="زيت زيتون 🫒"><span>🫒 زيت زيتون</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="زيت جوز الهند 🥥"><span>🥥 زيت جوز الهند</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="زبدة فول سوداني 🥜"><span>🥜 زبدة فول سوداني</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="مكسرات 🥜"><span>🥜 مكسرات</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="لوز 🌰"><span>🌰 لوز</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="جوز 🌰"><span>🌰 جوز</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="فستق 🌰"><span>🌰 فستق</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="كاجو 🌰"><span>🌰 كاجو</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="بندق 🌰"><span>🌰 بندق</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="صفار بيض 🥚"><span>🥚 صفار بيض</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="أفوكادو 🥑"><span>🥑 أفوكادو</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>🌾 البقوليات المفضلة</h3>
+        <div class="options-grid" id="legumes">
+          <label class="toggle-btn"><input type="checkbox" value="فول 🌱"><span>🌱 فول</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="حمص 🌱"><span>🌱 حمص</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="فاصوليا بيضاء 🌱"><span>🌱 فاصوليا بيضاء</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="فاصوليا حمراء 🌱"><span>🌱 فاصوليا حمراء</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="ذرة 🌽"><span>🌽 ذرة</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="بازلاء 🌱"><span>🌱 بازلاء</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+<!-- الخضار -->
+<div class="question">
+  <h3>🥦 الخضار المفضلة</h3>
+  <div class="options-grid" id="veggies">
+    <label class="toggle-btn"><input type="checkbox" value="بروكلي 🥦"><span>🥦 بروكلي</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="كوسة 🥒"><span>🥒 كوسة</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="سبانخ 🥬"><span>🥬 سبانخ</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="فاصوليا خضراء 🫘"><span>🫘 فاصوليا خضراء</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="بامية 🥗"><span>🥗 بامية</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="خيار 🥒"><span>🥒 خيار</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="طماطم 🍅"><span>🍅 طماطم</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="جزر 🥕"><span>🥕 جزر</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="خس 🥬"><span>🥬 خس</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="ملفوف 🥬"><span>🥬 ملفوف</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="فليفلة خضراء 🌶️"><span>🌶️ فليفلة خضراء</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="فليفلة حمراء 🌶️"><span>🌶️ فليفلة حمراء</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="فليفلة صفراء 🌶️"><span>🌶️ فليفلة صفراء</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="بصل 🧅"><span>🧅 بصل</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="سلطة خضار 🥗"><span>🥗 سلطة خضار</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="خضار مشكلة 🍲"><span>🍲 خضار مشكلة</span></label>
+  </div>
+</div>
+
+      <div class="question">
+        <h3>🍓 الفواكه المفضلة</h3>
+        <div class="options-grid" id="fruits">
+          <!-- قديمة -->
+          <label class="toggle-btn"><input type="checkbox" value="موز 🍌"><span>🍌 موز</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="تفاح 🍎"><span>🍎 تفاح</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="فراولة 🍓"><span>🍓 فراولة</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="بطيخ 🍉"><span>🍉 بطيخ</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="برتقال 🍊"><span>🍊 برتقال</span></label>
+          <!-- جديدة -->
+          <label class="toggle-btn"><input type="checkbox" value="أناناس 🍍"><span>🍍 أناناس</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="كيوي 🥝"><span>🥝 كيوي</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="مانجا 🥭"><span>🥭 مانجا</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="عنب 🍇"><span>🍇 عنب</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="توت أزرق/أحمر 🫐"><span>🫐 توت أزرق/أحمر</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="كمثرى 🍐"><span>🍐 كمثرى</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="مشمش 🍑"><span>🍑 مشمش</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="تمر 🌴"><span>🌴 تمر</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="تين 🍈"><span>🍈 تين</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="خوخ 🍑"><span>🍑 خوخ</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>🥛 منتجات الألبان</h3>
+        <div class="options-grid" id="dairy">
+          <label class="toggle-btn"><input type="checkbox" value="جبن قريش 🧀"><span>🧀 جبن قريش</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="لبن 🥛"><span>🥛 لبن</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="لبنة 🧀"><span>🧀 لبنة</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="حليب كامل الدسم 🥛"><span>🥛 حليب كامل الدسم</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="جبنة موزاريلا 🧀"><span>🧀 جبنة موزاريلا</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="زبادي يوناني 🥛"><span>🥛 زبادي يوناني</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="حليب قليل الدسم 🥛"><span>🥛 حليب قليل الدسم</span></label>
+        </div>
+      </div>
+    
+
+      <!-- ملاحظات -->
+      <label class="title" for="notes">🗒️ ملاحظات أو أكلات مفضلة (اختياري)</label>
+      <textarea id="notes" placeholder="مثال: أحب الأرز البسمتي – ما بحب السمك – فطور صباحي..."></textarea>
+
+      <!-- المكملات الغذائية -->
+<div class="question">
+  <h3>🏋️‍♂️ هل تفضل استخدام المكملات الغذائية؟</h3>
+  <div class="options-grid" id="supplement_preference">
+    <label class="toggle-btn">
+      <input type="radio" name="supp_pref" value="نعم">
+      <span>✅ نعم</span>
+    </label>
+    <label class="toggle-btn">
+      <input type="radio" name="supp_pref" value="لا">
+      <span>❌ لا</span>
+    </label>
+  </div>
+</div>
+
+<!-- قائمة المكملات -->
+<div class="question" id="supplements_section" style="display:none;">
+  <h3>💪 اختر المكملات الغذائية التي تمتلكها</h3>
+  <div class="options-grid" id="supplements">
+    <label class="toggle-btn"><input type="checkbox" value="Whey Protein"><span>🥤 Whey Protein</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Casein Protein"><span>🥛 Casein Protein</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Creatine"><span>⚡ Creatine</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="BCAA"><span>💥 BCAA</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Pre-Workout"><span>🔥 Pre-Workout</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="L-Carnitine"><span>🏃 L-Carnitine</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Glutamine"><span>🧬 Glutamine</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Collagen"><span>💧 Collagen</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="CLA"><span>🧈 CLA</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Electrolytes"><span>💧 Electrolytes</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Mass Gainer"><span>🍶 Mass Gainer</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Pump Formula"><span>💪 Pump Formula</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Beta-Alanine"><span>⚡ Beta-Alanine</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="HMB"><span>🏋️ HMB</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="EAA"><span>💥 EAA</span></label>
+  </div>
+
+  <h3 style="margin-top:18px;">💊 قسم الفيتامينات</h3>
+  <div class="options-grid" id="vitamins">
+    <label class="toggle-btn"><input type="checkbox" value="Multivitamin"><span>💊 Multivitamin</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Omega 3"><span>🐟 Omega 3</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Vitamin D3"><span>🌞 Vitamin D3</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Vitamin C"><span>🍊 Vitamin C</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Vitamin B Complex"><span>🧠 Vitamin B Complex</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="ZMA"><span>⚙️ ZMA</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Iron"><span>🩸 Iron</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Magnesium"><span>⚡ Magnesium</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Calcium"><span>🦴 Calcium</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Zinc"><span>🧬 Zinc</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Selenium"><span>✨ Selenium</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Biotin"><span>💇 Biotin</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Folic Acid"><span>🌿 Folic Acid</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="CoQ10"><span>💓 CoQ10</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="Ashwagandha"><span>🌿 Ashwagandha</span></label>
+  </div>
+</div>
+
+
+
+      <div class="btns">
+        <button class="btn sec" id="previewBtn">👀 عرض البيانات</button>
+        <button class="btn" id="copyBtn">📋 نسخ البيانات</button>
+      </div>
+
+      <hr class="sep">
+
+      <div id="preview"></div>
+      <div class="note">💡 تحقّق من المعلومات قبل النسخ والإرسال للمدرب.</div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">✅ تم نسخ البيانات — يمكنك لصقها الآن</div>
+
+
+  <script>
+  // إظهار أو إخفاء قسم المكملات بناءً على الإجابة
+  document.querySelectorAll('input[name="supp_pref"]').forEach(radio=>{
+    radio.addEventListener('change',()=>{
+      const sec=document.getElementById('supplements_section');
+      sec.style.display = radio.value==="نعم" ? 'block' : 'none';
+    });
+  });
+</script>
+  <script>
+    function joinChecked(containerId){
+      const checked=[...document.querySelectorAll(`#${containerId} input:checked`)]
+        .map(i=>i.value);
+      return checked.length? checked.join('، ') : 'غير محدد';
+    }
+function buildText(){
+  const getVal = id => document.getElementById(id)?.value?.trim() || 'غير محدد';
+
+  const name = getVal('name');
+  const height = getVal('height');
+  const weight = getVal('weight');
+  const age = getVal('age');
+  const days = getVal('days');
+  const goal = getVal('goal');
+  const history = getVal('history');
+  const injuries = getVal('injuries');
+  const job = getVal('job');
+  const time = getVal('time');
+  const notes = getVal('notes');
+
+  const proteins = joinChecked('proteins');
+  const carbs = joinChecked('carbs');
+  const fats = joinChecked('fats');
+  const legumes = joinChecked('legumes');
+  const veggies = joinChecked('veggies');
+  const fruits = joinChecked('fruits');
+  const dairy = joinChecked('dairy');
+
+  const suppPref = document.querySelector('input[name="supp_pref"]:checked')?.value || 'غير محدد';
+  const supplements = joinChecked('supplements');
+  const vitamins = joinChecked('vitamins');
+
+  return `📋 استبيان العميل
+
+📌 الاسم: ${name}
+🎛 الطول: ${height} سم
+⚖️ الوزن: ${weight} كغ
+🎂 العمر: ${age}
+
+📅 عدد أيام التمرين: ${days}
+🎯 الهدف: ${goal}
+🏋️‍♀️ التاريخ التدريبي: ${history}
+🤕 الإصابات: ${injuries}
+🧑‍💻 طبيعة العمل: ${job}
+🕒 الوقت المفضل: ${time}
+
+🍗 البروتينات:
+${proteins}
+
+🥔 الكربوهيدرات:
+${carbs}
+
+🧈 الدهون:
+${fats}
+
+🌾 البقوليات:
+${legumes}
+
+🥦 الخضار:
+${veggies}
+
+🍓 الفواكه:
+${fruits}
+
+🥛 الألبان:
+${dairy}
+
+🏋️‍♂️ تفضيل استخدام المكملات:
+${suppPref}
+
+💪 المكملات التي يمتلكها:
+${suppPref==='نعم' ? (supplements || 'غير محدد') : 'لا يوجد'}
+
+💊 الفيتامينات التي يمتلكها:
+${suppPref==='نعم' ? (vitamins || 'غير محدد') : 'لا يوجد'}
+
+🗒️ ملاحظات:
+${notes}`;
+}
+
+
+    // عرض البيانات
+    document.getElementById('previewBtn').addEventListener('click', function(e){
+      e.preventDefault();
+      const text=buildText();
+      const box=document.getElementById('preview');
+      box.textContent=text;
+      box.style.display='block';
+      box.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+
+    // نسخ البيانات (مع دعم الموبايل)
+    document.getElementById('copyBtn').addEventListener('click', function(e){
+      e.preventDefault();
+      const text=buildText();
+      const toast=()=>{const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);};
+      // جرّب Clipboard API
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        setTimeout(()=>{navigator.clipboard.writeText(text).then(toast).catch(fallback);},80);
+      }else{fallback();}
+      function fallback(){
+        const ta=document.createElement('textarea');
+        ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        try{document.execCommand('copy'); toast();}catch{alert('حدّد النص يدويًا وانسخه 🙏');}
+        document.body.removeChild(ta);
+      }
+    });
+  </script>
+</body>
+</html>
