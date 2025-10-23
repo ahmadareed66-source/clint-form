@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📋 استبيان العميل</title>
+  <title>📋 استبيان المتدرب</title>
   <style>
     *{box-sizing:border-box}
     body{margin:0;background:#121212;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto}
@@ -177,65 +177,6 @@
   border-radius: 8px;
   padding: 6px 10px;
 }
-/* 🌈 تصميم عصري لكل قسم */
-.question {
-  position: relative;
-  background: linear-gradient(145deg, #1a1a1a 0%, #1c1c1c 100%);
-  border-radius: 14px;
-  border: 1px solid #2a2a2a;
-  padding: 16px 18px;
-  margin: 18px 0;
-  transition: 0.3s ease;
-}
-.question:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.35);
-}
-
-/* 🔹 الشريط الجانبي الملوّن */
-.question::before {
-  content: "";
-  position: absolute;
-  right: 0;  /* لأنه RTL */
-  top: 0;
-  height: 100%;
-  width: 6px;
-  border-radius: 0 14px 14px 0;
-  background: var(--q-color, #4caf50);
-}
-
-/* 🏷️ لون كل قسم */
-#proteins { --q-color: #66bb6a; }
-#carbs { --q-color: #ffa726; }
-#extraCarbs { --q-color: #ffca28; }
-#fats { --q-color: #ec407a; }
-#legumes { --q-color: #29b6f6; }
-#veggies { --q-color: #9ccc65; }
-#fruits { --q-color: #f06292; }
-#naturalJuices { --q-color: #ffb74d; }
-#dairy { --q-color: #81d4fa; }
-#healthySnack { --q-color: #ba68c8; }
-#cheatMeals { --q-color: #ef5350; }
-#cheatSweets { --q-color: #f48fb1; }
-#supplements_section { --q-color: #00bcd4; }
-
-/* 🧾 عنوان القسم */
-.question h3 {
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin: 0 0 10px;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* ✨ تنسيق النص داخل الشرح */
-.question p {
-  color: #bdbdbd;
-  margin-bottom: 10px;
-  font-size: 0.9rem;
-}
 
 
   </style>
@@ -292,7 +233,7 @@
       </select>
 
       <!-- الأقسام الغذائية الموسعة بالإيموجي -->
-      <div class="question" id="proteins">
+      <div class="question">
         <h3>🍗 البروتينات المفضلة</h3>
         <div class="options-grid" id="proteins">
           <!-- بروتين -->
@@ -311,7 +252,7 @@
         </div>
       </div>
 
-      <div class="question"id="carbs">
+      <div class="question">
         <h3>🥔 الكربوهيدرات المفضلة</h3>
        <div class="options-grid" id="carbs">
         <label class="toggle-btn"><input type="checkbox" value="أرز 🍚"><span>🍚 أرز</span></label>
@@ -322,7 +263,7 @@
         <label class="toggle-btn"><input type="checkbox" value="برغل 🍲"><span>🍲 برغل</span></label>
       </div>
 
-      <div class="question"id="extraCarbs">
+      <div class="question">
     
         <h3>🍞 هل تفضل أن يحتوي الدايت الخاص بك على نوع من الأنواع التالية؟  (اختياري) </h3>
         <p style="color:#bbb;font-size:0.9rem;margin:-4px 0 8px;">يمكن اختيار عنصر واحد فقط من هذه القائمة.</p>
@@ -342,7 +283,7 @@
 
 
 
-      <div class="question"id="fats">
+      <div class="question">
         <h3>🧈 الدهون المفضلة</h3>
         <div class="options-grid" id="fats">
           <label class="toggle-btn"><input type="checkbox" value="زيت زيتون 🫒"><span>🫒 زيت زيتون</span></label>
@@ -359,7 +300,7 @@
         </div>
       </div>
 
-      <div class="question"id="legumes">
+      <div class="question">
         <h3>🌾 البقوليات المفضلة</h3>
         <div class="options-grid" id="legumes">
           <label class="toggle-btn"><input type="checkbox" value="فول 🌱"><span>🌱 فول</span></label>
@@ -373,7 +314,7 @@
 
       <div class="question">
 <!-- الخضار -->
-<div class="question"id="veggies">
+<div class="question">
   <h3>🥦 الخضار المفضلة</h3>
   <div class="options-grid" id="veggies">
     <label class="toggle-btn"><input type="checkbox" value="بروكلي 🥦"><span>🥦 بروكلي</span></label>
@@ -395,7 +336,7 @@
   </div>
 </div>
 
-      <div class="question"id=fruits>
+      <div class="question">
         <h3>🍓 الفواكه المفضلة</h3>
         <div class="options-grid" id="fruits">
           <!-- قديمة -->
@@ -420,7 +361,7 @@
 
 
             <!-- 🍊 عصائر طبيعية -->
-      <div class="question"id="naturalJuices">
+      <div class="question">
         <h3>🍊 عصائر طبيعية (اختياري)</h3>
         <p style="color:#bbb;font-size:0.9rem;margin:-4px 0 8px;">
           يمكنك اختيار نوع واحد فقط، أو كتابة نوع عصير آخر تفضله.
@@ -444,7 +385,7 @@
 
 
 
-      <div class="question"id=dairy>
+      <div class="question">
         <h3>🥛 منتجات الألبان</h3>
         <div class="options-grid" id="dairy">
           <label class="toggle-btn"><input type="checkbox" value="جبن قريش 🧀"><span>🧀 جبن قريش</span></label>
@@ -459,7 +400,7 @@
   
 
       <!-- 🍫 سناك صحي -->
-<div class="question"id=healthySnack>
+<div class="question">
   <h3>🍫 سناك صحي (اختياري)</h3>
   <p style="color:#bbb;font-size:0.9rem;margin:-4px 0 8px;">
     يمكنك اختيار نوع واحد فقط من السناك الصحي الذي تفضله.
@@ -479,7 +420,7 @@
 
 
       <!-- 🍔 أكلات خارج الدايت -->
-<div class="question"id=cheatMeals>
+<div class="question">
   <h3>🍔 أكلات بتحبها خارج الدايت 😋 (اختياري)</h3>
   <p style="color:#bbb;font-size:0.9rem;margin:-4px 0 8px;">
     يمكنك اختيار أكثر من نوع، أو كتابة وجبة أخرى تفضلها.
@@ -501,7 +442,7 @@
 </div>
 
 <!-- 🍰 حلويات خارج الدايت -->
-<div class="question"id=cheatSweets>
+<div class="question">
   <h3>🍰 حلويات بتحبها خارج الدايت 🍩 (اختياري)</h3>
   <p style="color:#bbb;font-size:0.9rem;margin:-4px 0 8px;">
     يمكنك اختيار أكثر من نوع، أو كتابة نوع آخر تفضله.
@@ -527,7 +468,7 @@
       <textarea id="notes" placeholder="مثال: أحب الأرز البسمتي – ما بحب السمك – فطور صباحي..."></textarea>
 
       <!-- المكملات الغذائية -->
-<div class="question"id=supplements_section>
+<div class="question">
   <h3>🏋️‍♂️ هل تفضل استخدام المكملات الغذائية؟</h3>
   <div class="options-grid" id="supplement_preference">
     <label class="toggle-btn">
