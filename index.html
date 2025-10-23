@@ -250,6 +250,17 @@
     height: 55px; /* شوي أطول للموبايل */
   }
 }
+/* 💫 نبضة خفيفة عند اختيار الخيار */
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.3); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(255,255,255,0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+}
+
+/* نطبّق النبضة عند التحديد */
+.toggle-btn input:checked + span {
+  animation: pulse 0.4s ease;
+}
 
 
   </style>
@@ -850,5 +861,6 @@ ${notes}`;
   </script>
 </body>
 </html>
+
 
 
