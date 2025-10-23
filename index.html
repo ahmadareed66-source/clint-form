@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📋 استبيان المتدرب</title>
+  <title>📋 استبيان العميل</title>
   <style>
     *{box-sizing:border-box}
     body{margin:0;background:#121212;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto}
@@ -38,11 +38,205 @@
       input,select,textarea{font-size:1.05rem}
       .btn{font-size:1.05rem;padding:16px}
     }
-    @media (max-width: 600px) {
-  .options-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+    .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    }
+    /* 🔸 تمييز الألوان عند التحديد */
+#carbs input:checked + span {
+  background: #4caf50;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
 }
+
+#extraCarbs input:checked + span {
+  background: #ff9800;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* Toast خاص بالتنبيهات */
+#alertToast {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  background: #ff9800;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  z-index: 1000;
+}
+#alertToast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* 🎨 تخصيص لون كل قسم عند التحديد */
+
+/* بروتينات */
+#proteins input:checked + span {
+  background: #66bb6a;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* كربوهيدرات */
+#carbs input:checked + span {
+  background: #ffa726;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* إضافات */
+#extraCarbs input:checked + span {
+  background: #ffca28;
+  color: #000;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* دهون */
+#fats input:checked + span {
+  background: #ec407a;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* بقوليات */
+#legumes input:checked + span {
+  background: #29b6f6;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* خضار */
+#veggies input:checked + span {
+  background: #9ccc65;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* فواكه */
+#fruits input:checked + span {
+  background: #f06292;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* عصائر */
+#naturalJuices input:checked + span {
+  background: #ffb74d;
+  color: #000;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* ألبان */
+#dairy input:checked + span {
+  background: #81d4fa;
+  color: #000;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* سناك صحي */
+#healthySnack input:checked + span {
+  background: #ba68c8;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* أكلات خارج الدايت */
+#cheatMeals input:checked + span {
+  background: #ef5350;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* حلويات خارج الدايت */
+#cheatSweets input:checked + span {
+  background: #f48fb1;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+/* 🌈 تصميم عصري لكل قسم */
+.question {
+  position: relative;
+  background: linear-gradient(145deg, #1a1a1a 0%, #1c1c1c 100%);
+  border-radius: 14px;
+  border: 1px solid #2a2a2a;
+  padding: 16px 18px;
+  margin: 18px 0;
+  transition: 0.3s ease;
+}
+.question:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.35);
+}
+
+/* 🔹 الشريط الجانبي الملوّن */
+.question::before {
+  content: "";
+  position: absolute;
+  right: 0;  /* لأنه RTL */
+  top: 0;
+  height: 100%;
+  width: 6px;
+  border-radius: 0 14px 14px 0;
+  background: var(--q-color, #4caf50);
+}
+
+/* 🏷️ لون كل قسم */
+#proteins { --q-color: #66bb6a; }
+#carbs { --q-color: #ffa726; }
+#extraCarbs { --q-color: #ffca28; }
+#fats { --q-color: #ec407a; }
+#legumes { --q-color: #29b6f6; }
+#veggies { --q-color: #9ccc65; }
+#fruits { --q-color: #f06292; }
+#naturalJuices { --q-color: #ffb74d; }
+#dairy { --q-color: #81d4fa; }
+#healthySnack { --q-color: #ba68c8; }
+#cheatMeals { --q-color: #ef5350; }
+#cheatSweets { --q-color: #f48fb1; }
+#supplements_section { --q-color: #00bcd4; }
+
+/* 🧾 عنوان القسم */
+.question h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 10px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ✨ تنسيق النص داخل الشرح */
+.question p {
+  color: #bdbdbd;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
 
   </style>
 </head>
@@ -98,11 +292,11 @@
       </select>
 
       <!-- الأقسام الغذائية الموسعة بالإيموجي -->
-      <div class="question">
+      <div class="question" id="proteins">
         <h3>🍗 البروتينات المفضلة</h3>
         <div class="options-grid" id="proteins">
           <!-- بروتين -->
-          <label class="toggle-btn"><input type="checkbox" value="دجاج 🍗"><span>🍗 دجاج صدر </span></label>
+          <label class="toggle-btn"><input type="checkbox" value="دجاج 🍗"><span>🍗 دجاج</span></label>
           <label class="toggle-btn"><input type="checkbox" value="تونة 🐟"><span>🐟 تونة</span></label>
           <label class="toggle-btn"><input type="checkbox" value="لحم 🥩"><span>🥩 لحم</span></label>
           <label class="toggle-btn"><input type="checkbox" value="بيض 🥚"><span>🥚 بيض</span></label>
@@ -117,23 +311,27 @@
         </div>
       </div>
 
-      <div class="question">
+      <div class="question"id="carbs">
         <h3>🥔 الكربوهيدرات المفضلة</h3>
-        <div class="options-grid" id="carbs">
-          <!-- قديمة -->
-          <label class="toggle-btn"><input type="checkbox" value="أرز 🍚"><span>🍚 أرز</span></label>
-          <label class="toggle-btn"><input type="checkbox" value="بطاطا 🥔"><span>🥔 بطاطا</span></label>
-          <label class="toggle-btn"><input type="checkbox" value="مكرونة بنية 🍝"><span>🍝 مكرونة بنية</span></label>
-          <label class="toggle-btn"><input type="checkbox" value="شوفان 🥣"><span>🥣 شوفان</span></label>
-          <label class="toggle-btn"><input type="checkbox" value="توست بني 🍞"><span>🍞 توست بني</span></label>
-          <!-- جديدة -->
-          <label class="toggle-btn"><input type="checkbox" value="بطاطا حلوة 🍠"><span>🍠 بطاطا حلوة</span></label>
+       <div class="options-grid" id="carbs">
+        <label class="toggle-btn"><input type="checkbox" value="أرز 🍚"><span>🍚 أرز</span></label>
+        <label class="toggle-btn"><input type="checkbox" value="بطاطا 🥔"><span>🥔 بطاطا</span></label>
+        <label class="toggle-btn"><input type="checkbox" value="بطاطا حلوة 🍠"><span>🍠 بطاطا حلوة</span></label>
+        <label class="toggle-btn"><input type="checkbox" value="مكرونة بنية 🍝"><span>🍝 مكرونة بنية</span></label>
+        <label class="toggle-btn"><input type="checkbox" value="شوفان 🥣"><span>🥣 شوفان</span></label>
+        <label class="toggle-btn"><input type="checkbox" value="برغل 🍲"><span>🍲 برغل</span></label>
+      </div>
+
+      <div class="question"id="extraCarbs">
+    
+        <h3>🍞 هل تفضل أن يحتوي الدايت الخاص بك على نوع من الأنواع التالية؟  (اختياري) </h3>
+        <p style="color:#bbb;font-size:0.9rem;margin:-4px 0 8px;">يمكن اختيار عنصر واحد فقط من هذه القائمة.</p>
+        <div class="options-grid" id="extraCarbs">
           <label class="toggle-btn"><input type="checkbox" value="خبز تورتيلا أسمر 🌯"><span>🌯 خبز تورتيلا أسمر</span></label>
           <label class="toggle-btn"><input type="checkbox" value="خبز تورتيلا أبيض 🌯"><span>🌯 خبز تورتيلا أبيض</span></label>
           <label class="toggle-btn"><input type="checkbox" value="خبز عربي 🍞"><span>🍞 خبز عربي</span></label>
           <label class="toggle-btn"><input type="checkbox" value="خبز برغر أسمر 🍔"><span>🍔 خبز برغر أسمر</span></label>
           <label class="toggle-btn"><input type="checkbox" value="خبز برغر أبيض 🍔"><span>🍔 خبز برغر أبيض</span></label>
-          <label class="toggle-btn"><input type="checkbox" value="برغل 🍲"><span>🍲 برغل</span></label>
           <label class="toggle-btn"><input type="checkbox" value="كينوا 🍚"><span>🍚 كينوا</span></label>
           <label class="toggle-btn"><input type="checkbox" value="معروكة 🥯"><span>🥯 معروكة</span></label>
           <label class="toggle-btn"><input type="checkbox" value="كورن فليكس 🥣"><span>🥣 كورن فليكس</span></label>
@@ -142,7 +340,9 @@
         </div>
       </div>
 
-      <div class="question">
+
+
+      <div class="question"id="fats">
         <h3>🧈 الدهون المفضلة</h3>
         <div class="options-grid" id="fats">
           <label class="toggle-btn"><input type="checkbox" value="زيت زيتون 🫒"><span>🫒 زيت زيتون</span></label>
@@ -159,7 +359,7 @@
         </div>
       </div>
 
-      <div class="question">
+      <div class="question"id="legumes">
         <h3>🌾 البقوليات المفضلة</h3>
         <div class="options-grid" id="legumes">
           <label class="toggle-btn"><input type="checkbox" value="فول 🌱"><span>🌱 فول</span></label>
@@ -173,7 +373,7 @@
 
       <div class="question">
 <!-- الخضار -->
-<div class="question">
+<div class="question"id="veggies">
   <h3>🥦 الخضار المفضلة</h3>
   <div class="options-grid" id="veggies">
     <label class="toggle-btn"><input type="checkbox" value="بروكلي 🥦"><span>🥦 بروكلي</span></label>
@@ -195,7 +395,7 @@
   </div>
 </div>
 
-      <div class="question">
+      <div class="question"id=fruits>
         <h3>🍓 الفواكه المفضلة</h3>
         <div class="options-grid" id="fruits">
           <!-- قديمة -->
@@ -218,7 +418,33 @@
         </div>
       </div>
 
-      <div class="question">
+
+            <!-- 🍊 عصائر طبيعية -->
+      <div class="question"id="naturalJuices">
+        <h3>🍊 عصائر طبيعية (اختياري)</h3>
+        <p style="color:#bbb;font-size:0.9rem;margin:-4px 0 8px;">
+          يمكنك اختيار نوع واحد فقط، أو كتابة نوع عصير آخر تفضله.
+        </p>
+        <div class="options-grid" id="naturalJuices">
+          <label class="toggle-btn"><input type="checkbox" value="عصير برتقال 🍊"><span>🍊 عصير برتقال</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="عصير جزر 🥕"><span>🥕 عصير جزر</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="عصير فريز 🍓"><span>🍓 عصير فريز</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="عصير تفاح 🍏"><span>🍏 عصير تفاح</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="عصير أناناس 🍍"><span>🍍 عصير أناناس</span></label>
+          <label class="toggle-btn"><input type="checkbox" value="عصير مانجا 🥭"><span>🥭 عصير مانجا</span></label>
+        </div>
+
+        <!-- نوع آخر -->
+        <div style="margin-top:10px;">
+          <label for="otherJuice" style="color:#bbb;font-size:0.9rem;">نوع آخر من العصائر الطبيعية:</label>
+          <input type="text" id="otherJuice" placeholder="مثلاً: رمان، شمام..." style="width:100%;padding:8px;border-radius:8px;border:none;background:#222;color:#fff;margin-top:6px;">
+        </div>
+      </div>
+
+
+
+
+      <div class="question"id=dairy>
         <h3>🥛 منتجات الألبان</h3>
         <div class="options-grid" id="dairy">
           <label class="toggle-btn"><input type="checkbox" value="جبن قريش 🧀"><span>🧀 جبن قريش</span></label>
@@ -230,14 +456,78 @@
           <label class="toggle-btn"><input type="checkbox" value="حليب قليل الدسم 🥛"><span>🥛 حليب قليل الدسم</span></label>
         </div>
       </div>
-    
+  
+
+      <!-- 🍫 سناك صحي -->
+<div class="question"id=healthySnack>
+  <h3>🍫 سناك صحي (اختياري)</h3>
+  <p style="color:#bbb;font-size:0.9rem;margin:-4px 0 8px;">
+    يمكنك اختيار نوع واحد فقط من السناك الصحي الذي تفضله.
+  </p>
+  <div class="options-grid" id="healthySnack">
+      <label class="toggle-btn"><input type="checkbox" value="دارك شوكولا (80% فأكثر) 🍫"><span>🍫 دارك شوكولا</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="تمر 🌴"><span>🌴 تمر</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="عسل 🍯"><span>🍯 عسل</span></label>
+  </div>
+
+  <!-- نوع آخر -->
+  <div style="margin-top:10px;">
+    <label for="otherSnack" style="color:#bbb;font-size:0.9rem;">نوع آخر من السناك الصحي:</label>
+    <input type="text" id="otherSnack" placeholder="مثلاً: بروتين بار، تمر محشي..." style="width:100%;padding:8px;border-radius:8px;border:none;background:#222;color:#fff;margin-top:6px;">
+  </div>
+</div>
+
+
+      <!-- 🍔 أكلات خارج الدايت -->
+<div class="question"id=cheatMeals>
+  <h3>🍔 أكلات بتحبها خارج الدايت 😋 (اختياري)</h3>
+  <p style="color:#bbb;font-size:0.9rem;margin:-4px 0 8px;">
+    يمكنك اختيار أكثر من نوع، أو كتابة وجبة أخرى تفضلها.
+  </p>
+  <div class="options-grid" id="cheatMeals">
+    <label class="toggle-btn"><input type="checkbox" value="شاورما 🌯"><span>🌯 شاورما</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="بيتزا حجم عادي 🍕"><span>🍕 بيتزا حجم عادي</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="برغر وسط 🍔"><span>🍔 برغر وسط</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="بطاطا مقلية 🍟"><span>🍟 بطاطا مقلية</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="معجنات 🥐"><span>🥐 معجنات</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="سوشي 🍣"><span>🍣 سوشي</span></label>
+  </div>
+
+  <!-- نوع آخر -->
+  <div style="margin-top:10px;">
+    <label for="otherMeal" style="color:#bbb;font-size:0.9rem;">نوع آخر (طبخة أو وجبة تفضلها):</label>
+    <input type="text" id="otherMeal" placeholder="مثلاً: منسف، كريب مالح..." style="width:100%;padding:8px;border-radius:8px;border:none;background:#222;color:#fff;margin-top:6px;">
+  </div>
+</div>
+
+<!-- 🍰 حلويات خارج الدايت -->
+<div class="question"id=cheatSweets>
+  <h3>🍰 حلويات بتحبها خارج الدايت 🍩 (اختياري)</h3>
+  <p style="color:#bbb;font-size:0.9rem;margin:-4px 0 8px;">
+    يمكنك اختيار أكثر من نوع، أو كتابة نوع آخر تفضله.
+  </p>
+  <div class="options-grid" id="cheatSweets">
+    <label class="toggle-btn"><input type="checkbox" value="كيك 🍰"><span>🍰 كيك</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="آيس كريم 🍦"><span>🍦 آيس كريم</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="دونات 🍩"><span>🍩 دونات</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="شوكولاتة 🍫"><span>🍫 شوكولاتة</span></label>
+    <label class="toggle-btn"><input type="checkbox" value="بسكويت 🍪"><span>🍪 بسكويت</span></label>
+  </div>
+
+  <!-- نوع آخر -->
+  <div style="margin-top:10px;">
+    <label for="otherSweet" style="color:#bbb;font-size:0.9rem;">نوع آخر (حلو تفضله):</label>
+    <input type="text" id="otherSweet" placeholder="مثلاً: نوتيلا، تشيز كيك..." style="width:100%;padding:8px;border-radius:8px;border:none;background:#222;color:#fff;margin-top:6px;">
+  </div>
+</div>
+
 
       <!-- ملاحظات -->
       <label class="title" for="notes">🗒️ ملاحظات أو أكلات مفضلة (اختياري)</label>
       <textarea id="notes" placeholder="مثال: أحب الأرز البسمتي – ما بحب السمك – فطور صباحي..."></textarea>
 
       <!-- المكملات الغذائية -->
-<div class="question">
+<div class="question"id=supplements_section>
   <h3>🏋️‍♂️ هل تفضل استخدام المكملات الغذائية؟</h3>
   <div class="options-grid" id="supplement_preference">
     <label class="toggle-btn">
@@ -309,6 +599,83 @@
   <div class="toast" id="toast">✅ تم نسخ البيانات — يمكنك لصقها الآن</div>
 
 
+
+<!-- ✅ Toast خاص بالتنبيهات -->
+<div class="toast" id="alertToast"></div>
+
+<script>
+// 🔸 دالة لإظهار Toast أنيق
+function showToast(message, color="#ff9800") {
+  const t = document.getElementById('alertToast');
+  t.textContent = message;
+  t.style.background = color;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ✅ السماح باختيار عنصر واحد فقط من extraCarbs
+const extraCarbChecks = document.querySelectorAll('#extraCarbs input[type="checkbox"]');
+extraCarbChecks.forEach(chk => {
+  chk.addEventListener('change', () => {
+    const checked = [...extraCarbChecks].filter(c => c.checked);
+    if (checked.length > 1) {
+      chk.checked = false;
+      showToast('⚠️ يمكنك اختيار نوع واحد فقط من الكربوهيدرات الإضافية (🍞 اختياري).', '#ff9800');
+    }
+  });
+});
+
+// ✅ التحقق من اختيار عنصرين على الأقل من الكربوهيدرات الأساسية
+function validateCarbs() {
+  const basic = [...document.querySelectorAll('#carbs input[type="checkbox"]:checked')];
+  if (basic.length < 2) {
+    showToast('⚠️ يجب اختيار عنصرين على الأقل من الكربوهيدرات الأساسية (🥔 ضروري لإعداد الدايت).', '#f44336');
+    return false;
+  }
+  return true;
+}
+
+// ✅ تعديل زر عرض البيانات ونسخها ليتحقق أولًا من الشروط
+const previewBtn = document.getElementById('previewBtn');
+const copyBtn = document.getElementById('copyBtn');
+
+[previewBtn, copyBtn].forEach(btn => {
+  btn.addEventListener('click', e => {
+    if (!validateCarbs()) {
+      e.preventDefault();
+      return;
+    }
+  });
+});
+
+// ✅ السماح باختيار نوع عصير واحد فقط
+const juiceChecks = document.querySelectorAll('#naturalJuices input[type="checkbox"]');
+juiceChecks.forEach(chk => {
+  chk.addEventListener('change', () => {
+    const checked = [...juiceChecks].filter(c => c.checked);
+    if (checked.length > 1) {
+      chk.checked = false;
+      showToast('🍊 يمكنك اختيار نوع عصير طبيعي واحد فقط.', '#ffb74d');
+    }
+  });
+});
+
+// ✅ السماح باختيار نوع واحد فقط في السناك الصحي
+const snackChecks = document.querySelectorAll('#healthySnack input[type="checkbox"]');
+snackChecks.forEach(chk => {
+  chk.addEventListener('change', () => {
+    const checked = [...snackChecks].filter(c => c.checked);
+    if (checked.length > 1) {
+      chk.checked = false;
+      showToast('🍫 يمكنك اختيار نوع سناك صحي واحد فقط.', '#9c27b0');
+    }
+  });
+});
+
+</script>
+
+
+
   <script>
   // إظهار أو إخفاء قسم المكملات بناءً على الإجابة
   document.querySelectorAll('input[name="supp_pref"]').forEach(radio=>{
@@ -341,11 +708,22 @@ function buildText(){
 
   const proteins = joinChecked('proteins');
   const carbs = joinChecked('carbs');
+  const extraCarbs = joinChecked('extraCarbs');
   const fats = joinChecked('fats');
   const legumes = joinChecked('legumes');
   const veggies = joinChecked('veggies');
   const fruits = joinChecked('fruits');
   const dairy = joinChecked('dairy');
+  const healthySnack = joinChecked('healthySnack');
+  const otherSnack = document.getElementById('otherSnack').value || '—';
+  const cheatMeals = joinChecked('cheatMeals');
+  const otherMeal = document.getElementById('otherMeal').value || '—';
+  const cheatSweets = joinChecked('cheatSweets');
+  const naturalJuices = joinChecked('naturalJuices');
+  const otherJuice = document.getElementById('otherJuice').value || '—';
+
+  const otherSweet = document.getElementById('otherSweet').value || '—';
+
 
   const suppPref = document.querySelector('input[name="supp_pref"]:checked')?.value || 'غير محدد';
   const supplements = joinChecked('supplements');
@@ -368,8 +746,11 @@ function buildText(){
 🍗 البروتينات:
 ${proteins}
 
-🥔 الكربوهيدرات:
+🥔 الكربوهيدرات الأساسية:
 ${carbs}
+
+🍞 إضافات اختيارية للدايت:
+${extraCarbs}
 
 🧈 الدهون:
 ${fats}
@@ -383,8 +764,33 @@ ${veggies}
 🍓 الفواكه:
 ${fruits}
 
+🍊 عصائر طبيعية:
+${naturalJuices}
+
+🔸 نوع آخر:
+${otherJuice}
+
 🥛 الألبان:
 ${dairy}
+
+🍫 سناك صحي:
+${healthySnack}
+
+🔸 نوع آخر:
+${otherSnack}
+
+🍔 أكلات بتحبها خارج الدايت:
+${cheatMeals}
+
+🔸 نوع آخر:
+${otherMeal}
+
+🍰 حلويات بتحبها خارج الدايت:
+${cheatSweets}
+
+🔸 نوع آخر:
+${otherSweet}
+
 
 🏋️‍♂️ تفضيل استخدام المكملات:
 ${suppPref}
