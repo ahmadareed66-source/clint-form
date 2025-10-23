@@ -212,6 +212,47 @@
   }
 }
 
+    /* 🟦 توحيد حجم الأزرار بالشبكة */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  align-items: stretch; /* يجعل كل الخانات نفس الارتفاع */
+}
+
+.toggle-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 50px; /* ارتفاع موحد */
+  background: #222;
+  border-radius: 10px;
+  transition: 0.3s ease;
+  cursor: pointer;
+  padding: 0 6px; /* يحافظ على توازن النصوص الطويلة */
+  box-sizing: border-box;
+}
+
+.toggle-btn span {
+  display: block;
+  line-height: 1.2;
+  word-break: break-word;
+  white-space: normal;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+/* لتنسيق الوضع في الموبايل */
+@media (max-width: 480px) {
+  .options-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .toggle-btn {
+    height: 55px; /* شوي أطول للموبايل */
+  }
+}
+
   </style>
 </head>
 <body>
@@ -810,5 +851,6 @@ ${notes}`;
   </script>
 </body>
 </html>
+
 
 
