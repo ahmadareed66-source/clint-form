@@ -177,6 +177,39 @@
   border-radius: 8px;
   padding: 6px 10px;
 }
+/* ضبط الشبكة لكل القوائم (صفّين متناسقين) */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+/* تحسين مظهر الأزرار لتبقى متساوية */
+.toggle-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  background: #222;
+  border-radius: 10px;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+.toggle-btn span {
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+/* لما يكون الزر محدد */
+.toggle-btn input:checked + span {
+  color: #000;
+  font-weight: 600;
+}
+@media (max-width: 480px) {
+  .options-grid {
+    grid-template-columns: repeat(2, 1fr); /* صفين حتى بالموبايل */
+  }
+}
 
 
   </style>
@@ -777,3 +810,4 @@ ${notes}`;
   </script>
 </body>
 </html>
+
