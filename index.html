@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark light">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>📋 استبيان المتدرب</title>
   <style>
@@ -375,9 +376,105 @@
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
+
+/* 🌗 زر تبديل الثيم بأسلوب iOS */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(145deg, #3b82f6, #94a3b8);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25), inset 0 -2px 6px rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  z-index: 10000;
+}
+.theme-toggle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+}
+.theme-toggle .dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #cbd5e1 70%);
+  box-shadow: inset -2px -2px 6px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+[data-theme="light"] .theme-toggle {
+  background: linear-gradient(145deg, #cbd5e1, #94a3b8);
+}
+[data-theme="light"] .theme-toggle .dot {
+  background: radial-gradient(circle at 70% 70%, #0f172a, #475569 70%);
+}
+
+
+/* 🌈 تأثير تبديل الخلفية بأسلوب iOS */
+:root {
+  --bg-dark: #121212;
+  --card-dark: #1e1e1e;
+  --text-dark: #fff;
+  --bg-light: #f1f5f9;
+  --card-light: #ffffff;
+  --text-light: #111;
+}
+
+html {
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* الوضع الفاتح */
+[data-theme="light"] body {
+  background: var(--bg-light);
+  color: var(--text-light);
+}
+
+/* تغيير شكل الكروت والوحدات */
+[data-theme="light"] .card,
+[data-theme="light"] .question {
+  background: var(--card-light);
+  border-color: #e2e8f0;
+  color: var(--text-light);
+}
+
+/* الحقول */
+[data-theme="light"] input,
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  background: #f9fafb;
+  color: #111;
+  border: 1px solid #d1d5db;
+}
+
+/* الزر */
+[data-theme="light"] .btn {
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  color: #fff;
+}
+[data-theme="light"] .btn:hover {
+  background: linear-gradient(180deg, #2563eb, #1e40af);
+}
+
   </style>
 </head>
 <body>
+  <!-- 🔘 زر تبديل الثيم على ستايل iOS -->
+<button id="themeToggle" class="theme-toggle" title="تبديل الوضع">
+  <div class="dot"></div>
+</button>
+
 
   <!-- شاشة تسجيل الدخول (محسّنة) -->
 <div id="login-screen" class="login-overlay">
@@ -1054,7 +1151,35 @@ if(cur){
 }
 </script>
 
+
+<script>
+// 🌙 تبديل الثيم (داكن ↔ فاتح)
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  if (current === 'light') {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'light');
+    localStorage.setItem('theme', 'light');
+  }
+});
+
+// تطبيق الثيم المخزن عند تحميل الصفحة
+if (localStorage.getItem('theme') === 'light') {
+  document.documentElement.setAttribute('data-theme', 'light');
+}
+// ✨ حركة دوران بسيطة للزر عند التبديل
+themeToggle.addEventListener('click', () => {
+  themeToggle.style.transform = 'rotate(180deg)';
+  setTimeout(() => themeToggle.style.transform = '', 400);
+});
+
+</script>
+
 </body>
 </html>
+
 
 
