@@ -467,6 +467,60 @@ body {
   background: linear-gradient(180deg, #2563eb, #1e40af);
 }
 
+/* 🎨 تصحيح ألوان صفحة المعاينة عند التبديل للثيم الفاتح */
+.preview-card,
+.preview-container {
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* الوضع الداكن الافتراضي */
+.preview-card {
+  background: #121212;
+  color: #fff;
+}
+
+/* الوضع الفاتح */
+[data-theme="light"] .preview-card {
+  background: #ffffff;
+  color: #111;
+  border: 1px solid #e5e7eb;
+}
+
+/* عنوان الاستبيان */
+[data-theme="light"] .preview-card h3,
+[data-theme="light"] .preview-card h4 {
+  color: #1e293b;
+}
+
+/* الرموز التعبيرية تبقى كما هي */
+.preview-card span {
+  font-size: 1.1em;
+}
+
+/* 🌗 ألوان صندوق المعاينة حسب الثيم */
+#preview {
+  padding: 18px;
+  border-radius: 14px;
+  margin-top: 25px;
+  white-space: pre-wrap;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* الوضع الداكن */
+:root:not([data-theme="light"]) #preview {
+  background: #111;
+  color: #f1f5f9;
+  box-shadow: 0 0 12px rgba(0,0,0,0.3);
+}
+
+/* الوضع الفاتح */
+[data-theme="light"] #preview {
+  background: #ffffff;
+  color: #1e293b;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
   </style>
 </head>
 <body>
